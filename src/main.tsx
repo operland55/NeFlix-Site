@@ -60,7 +60,7 @@ table {
 }
 body {
   font-family: 'Playfair Display', serif;
-  color: black;
+  color: blue;
   background-color: ${(props) => props.theme.black}
 }
 a {
