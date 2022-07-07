@@ -2,9 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import App from "./App";
-import "./index.css";
+
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme } from "./theme";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const GlobalStyle = createGlobalStyle`
 @import url('<link rel="preconnect" href="https://fonts.googleapis.com">');
@@ -60,7 +61,7 @@ table {
 }
 body {
   font-family: 'Playfair Display', serif;
-  color: blue;
+  color: ${props=>props.theme.white.darker};
   background-color: ${(props) => props.theme.black}
 }
 a {
@@ -68,12 +69,15 @@ a {
   color: inherit;
 }
 `;
+const client = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<ThemeProvider theme={theme}>
 		<RecoilRoot>
-			<App />
-			<GlobalStyle />
+			<QueryClientProvider client={client}>
+				<App />
+				<GlobalStyle />
+			</QueryClientProvider>
 		</RecoilRoot>
 	</ThemeProvider>
 );
